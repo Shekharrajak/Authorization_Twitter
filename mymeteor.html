@@ -1,0 +1,63 @@
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <title>One Question. Several Answers.</title>
+  <link rel="stylesheet" type="text/css" href="http://netdna.bootstrapcdn.com/bootswatch/3.0.3/yeti/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="http://netdna.bootstrapcdn.com/bootswatch/3.0.3/yeti/bootstrap.min.css">
+</head>
+
+<body>
+   <div class="container">
+    <h1>Add an answer. Or vote.</h1>
+    <div>
+     {{#if currentUser}}
+      {{loginButtons}}
+    {{/if}}
+    </div>
+    <br>
+    <h3><em>Question</em>: Is the world getting warmer?</h3>
+    <br>
+    <div>
+      <!-- if there is an answer, append it to the DOM -->
+     {{#if currentUser}}
+          {{> addAnswer}}
+          {{> answers}}
+        {{/if}}
+        {{#unless currentUser}}
+          {{> login}}
+          {{loginButtons}}
+        {{/unless}}
+    </div>
+  </div>
+</body>
+
+<template name="addAnswer">
+  <textarea class="form-control" rows="3" name="answerText" id="answerText" placeholder="Add Your Answer .."></textarea>
+  <br>
+  <input type="button" class="btn-primary add-answer btn-md" value="Add Answer"/>
+</template>
+
+<template name="answers">
+  <br>
+  <br>
+  <h2>All Questions</h2>
+  {{#each items}}
+    {{> answer}}
+  {{/each}}
+</template>
+
+<template name="answer">
+  <div>
+    <p class="lead">
+      {{answerText}}
+      <br>
+      <a class="btn btn-xs btn-success yes {{#unless currentUser}}disabled{{/unless}}" href="#"><i class="icon-thumbs-up"></i> Yes {{yes}}</a>
+      <a class="btn btn-xs btn-primary no {{#unless currentUser}}disabled{{/unless}}" href="#"><i class="icon-thumbs-down"></i> No {{no}}</a>
+    </p>
+  </div>
+</template>
+<template name="login">
+  <h4>Sign in using Twitter to submit new questions or to vote on existing questions.</h4>
+</template>
